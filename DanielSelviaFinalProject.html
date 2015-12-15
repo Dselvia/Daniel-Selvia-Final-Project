@@ -1,0 +1,454 @@
+<!doctype html>
+<html>
+<head>
+<title> Canvas Art Project</title>
+<script>
+var canvas;
+var context;
+var shapes=[];
+var circles=[];
+var squares=[];
+var rectangles=[];
+var triangles=[];
+var clouds=[];
+var stars=[];
+var drops=[];
+/*window.onkeydown = function(event) {
+   if (event.keyCode === 81) {
+     // alert("This is a test.");
+	  //context.clearRect(0, 0, canvas.width, canvas.height);
+	  drawText();
+   }
+};*/
+function text()
+{
+context.font = "48px Arial";
+context.fillText("Daniels Project", 10, 50);
+context.fillStyle="black";
+}
+function drawTextA() {
+		context.fillStyle = 'white';
+		context.font = 'bold 2em sans-serif';
+		context.textAlign = 'right';
+		context.fillText('Art', canvas.width-800, canvas.height-400);
+	}
+	function drawTextB() {
+		context.fillStyle = 'purple';
+		context.font = 'bold 2em sans-serif';
+		context.textAlign = 'right';
+		context.fillText('Comes In', canvas.width-600, canvas.height-400);
+	}
+function drawTextC() {
+		context.fillStyle = 'green';
+		context.font = 'bold 2em sans-serif';
+		context.textAlign = 'right';
+		context.fillText('All Shapes', canvas.width-400, canvas.height-400);
+	}
+function drawTextD() {
+		context.fillStyle = 'Blue';
+		context.font = 'bold 2em sans-serif';
+		context.textAlign = 'right';
+		context.fillText('And Sizes', canvas.width-200, canvas.height-400);
+	}
+  
+function Circle (x,y,color){
+	this.x=x;
+	this.y=y;
+	this.color=color;
+	this.dx=Math.random()*10;
+	this.dy=Math.random()*10;
+}
+function Square (x,y,color){
+	this.x=x;
+	this.y=y;
+	this.color=color;
+	this.dx=Math.random()*10;
+	this.dy=Math.random()*10;
+}
+function Rectangle (x,y,color){
+	this.x=x;
+	this.y=y;
+	this.color=color;
+	this.dx=Math.random()*10;
+	this.dy=Math.random()*10;
+}
+function Triangle (x,y,color){
+	this.x=x;
+	this.y=y;
+	this.color=color;
+	this.dx=Math.random()*10;
+	this.dy=Math.random()*10;
+}
+
+function Cloud (x,y,color){
+	this.x=x;
+	this.y=y;
+	this.color=color;
+	this.dx=Math.random()*10;
+	this.dy=Math.random()*10;
+}
+function Star(x, y, spikes, outer, inner, color)
+{
+	this.x = x;
+	this.y = y;
+	this.spikes = spikes;
+	this.outer = outer;
+	this.inner= inner;
+	this.dx = Math.random()*10;
+	this.dy = Math.random()*10;
+	this.color = color;
+	this.type = "s"; 
+}
+function Drop (x,y,color){
+	this.x=x;
+	this.y=y;
+	this.color=color;
+	this.dx=Math.random()*10;
+	this.dy=Math.random()*10;
+}
+function init(){
+    canvas = document.getElementById('canvas');
+    context = canvas.getContext('2d');
+		
+    //context.fillText('Hello,World',canvas.width-20,canvas.height-40);
+	//context.fillStyle='white';
+	//context.font='arial';
+	//context.textAlign='right';
+	text();
+	resizeCanvas();
+	canvas.onclick = function(event) {
+		handleClick(event.clientX, event.clientY);
+	};
+	//timer = setInterval(resizeCanvas, 10000);
+	
+	
+
+	
+    setInterval(handleClick,40);
+	setInterval(event,0);
+    }
+	
+	function resizeCanvas() {
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+	fillBackgroundColor();
+	
+	
+//drawText();
+}
+function fillBackgroundColor(){
+		context.fillStyle = 'black';
+		context.fillRect(0,0,canvas.width,canvas.height);
+	/*	window.onkeyup = function(event) {
+   if (event.keyCode === 65) {
+     // alert("This is a test.");
+	  //context.clearRect(0, 0, canvas.width, canvas.height);
+	  drawTextA();
+   }
+
+	
+  else if (event.keyCode === 83) {
+     // alert("This is a test.");
+	  //context.clearRect(0, 0, canvas.width, canvas.height);
+	  drawTextB();
+   }
+
+   else if (event.keyCode === 68) {
+     // alert("This is a test.");
+	  //context.clearRect(0, 0, canvas.width, canvas.height);
+	  drawTextC();
+   }
+
+  else if (event.keyCode === 70) {
+     // alert("This is a test.");
+	  //context.clearRect(0, 0, canvas.width, canvas.height);
+	  drawTextD();
+   }
+};*/
+	//drawText();
+	}
+    function handleClick(x,y){
+	window.onkeyup = function(event) {
+   if (event.keyCode === 65) {
+     // alert("This is a test.");
+	  //context.clearRect(0, 0, canvas.width, canvas.height);
+	  drawTextA();
+   }
+
+	
+  else if (event.keyCode === 83) {
+     // alert("This is a test.");
+	  //context.clearRect(0, 0, canvas.width, canvas.height);
+	  drawTextB();
+   }
+
+   else if (event.keyCode === 68) {
+     // alert("This is a test.");
+	  //context.clearRect(0, 0, canvas.width, canvas.height);
+	  drawTextC();
+   }
+
+  else if (event.keyCode === 70) {
+     // alert("This is a test.");
+	  //context.clearRect(0, 0, canvas.width, canvas.height);
+	  drawTextD();
+   }
+};
+		
+		var found=false;
+		
+		
+		
+        
+        for(var i = 0; i<circles.length;i++){
+		d=Math.sqrt((circles[i].x-x)*(circles[i].x-x)+(circles[i].y-y)*(circles[i].y-y));
+			if (d<=30){
+				circles.splice(i,1);
+				found=true;
+			}
+			
+			}
+            
+            
+			for(var i = 0; i<squares.length;i++){
+		d=Math.sqrt((squares[i].x-x)*(squares[i].x-x)+(squares[i].y-y)*(squares[i].y-y));
+			if (d<=30){
+				squares.splice(i,1);
+				found=true;
+			}
+			}
+			
+			for(var i = 0; i<rectangles.length;i++){
+		d=Math.sqrt((rectangles[i].x-x)*(rectangles[i].x-x)+(rectangles[i].y-y)*(rectangles[i].y-y));
+			if (d<=30){
+				rectangles.splice(i,1);
+				found=true;
+			}
+			
+			}
+			for(var i = 0; i<triangles.length;i++){
+		d=Math.sqrt((triangles[i].x-x)*(triangles[i].x-x)+(triangles[i].y-y)*(triangles[i].y-y));
+			if (d<=30){
+				triangles.splice(i,1);
+				found=true;
+			}
+			}
+			for(var i = 0; i<clouds.length;i++){
+		d=Math.sqrt((clouds[i].x-x)*(clouds[i].x-x)+(clouds[i].y-y)*(clouds[i].y-y));
+			if (d<=30){
+				clouds.splice(i,1);
+				found=true;
+			}
+			}
+			for(var i = 0; i<stars.length;i++){
+		d=Math.sqrt((stars[i].x-x)*(stars[i].x-x)+(stars[i].y-y)*(stars[i].y-y));
+			if (d<=30){
+				stars.splice(i,1);
+				found=true;
+			}
+			}
+			for(var i = 0; i<drops.length;i++){
+		d=Math.sqrt((drops[i].x-x)*(drops[i].x-x)+(drops[i].y-y)*(drops[i].y-y));
+			if (d<=30){
+				drops.splice(i,1);
+				found=true;
+			}
+			}
+			
+			
+			fillBackgroundColor();
+		if(!found){
+		
+			var colors = ['red','blue','green','orange','purple','yellow'];
+			var color = colors[Math.floor(Math.random()*colors.length)];
+			circles.push(new Circle(x,y,color));
+			squares.push(new Square(x,y,color));
+			rectangles.push(new Rectangle(x,y,color));
+			//triangles.push(new Triangle(x, y, Math.random()*70+x, Math.random()*70+y, Math.random()*70+x, Math.random()*70+y, color));
+			triangles.push(new Triangle(x,y,color));
+			clouds.push(new Cloud(x,y,color));
+			stars.push(new Star(x, y, 5, Math.random()*50+30,  Math.random()*50+15, color));
+			drops.push(new Drop(x,y,color));
+			
+		}
+       
+        
+		for(var i=0;i<circles.length;i++)
+		{
+			drawCircle(circles[i]);
+		}
+		
+		for(var i=0;i<squares.length;i++){
+			drawSquare(squares[i]);
+		}
+		
+		
+		for(var i=0;i<rectangles.length;i++){
+			drawRectangle(rectangles[i]);
+		}
+		for(var i=0;i<triangles.length;i++){
+			 drawTriangle(triangles[i]);
+		}
+		
+		for(var i=0;i<clouds.length;i++){
+			 drawCloud(clouds[i]);
+		}
+		for(var i=0;i<stars.length;i++){
+			 drawStar(stars[i]);
+		}
+		for(var i=0;i<drops.length;i++){
+			 drawDrop(drops[i]);
+		}
+	
+	}
+	function drawCircle(circle){
+		context.beginPath();
+		context.arc(circle.x,circle.y,30,0,degreesToRadians(360),true);
+		context.fillStyle=circle.color;
+		context.fill();
+		if (circle.x + circle.dx > canvas.width || circle.x + circle.dx < 0)
+    circle.dx = -circle.dx;
+  if (circle.y + circle.dy > canvas.height || circle.y + circle.dy < 0)
+    circle.dy = -circle.dy;
+  circle.x += circle.dx;
+  circle.y += circle.dy;
+		
+	}
+	
+function drawSquare(square)	{
+context.beginPath();
+		context.rect(square.x,square.y,50,50, true);
+		context.fillStyle=square.color;
+		context.fill();
+		if (square.x + square.dx > canvas.width || square.x + square.dx < 0)
+    square.dx = -square.dx;
+  if (square.y + square.dy > canvas.height || square.y + square.dy < 0)
+    square.dy = -square.dy;
+  square.x += square.dx;
+  square.y += square.dy;
+	
+}
+function drawRectangle(rectangle)	{
+context.beginPath();
+		context.rect(rectangle.x,rectangle.y,100,75, true);
+		context.fillStyle=rectangle.color;
+		context.fill();
+		if (rectangle.x + rectangle.dx > canvas.width || rectangle.x + rectangle.dx < 0)
+    rectangle.dx = -rectangle.dx;
+  if (rectangle.y + rectangle.dy > canvas.height || rectangle.y + rectangle.dy < 0)
+    rectangle.dy = -rectangle.dy;
+  rectangle.x += rectangle.dx;
+  rectangle.y += rectangle.dy;
+	
+}
+function drawTriangle(triangle) {
+		context.beginPath();
+		context.fillStyle = triangle.color;
+		context.moveTo(triangle.x+triangle.size,triangle.y);
+		context.lineTo(triangle.x,triangle.y);
+		context.lineTo(triangle.x,triangle.y+triangle.size);
+	    context.closePath();
+        context.fill();
+			if (triangle.x + triangle.dx > canvas.width || triangle.x + triangle.dx < 0)
+    triangle.dx = -triangle.dx;
+  if (triangle.y + triangle.dy > canvas.height || triangle.y + triangle.dy < 0)
+    triangle.dy = -triangle.dy;
+  triangle.x += triangle.dx;
+  triangle.y += triangle.dy;
+	  }
+    
+	
+	
+	function drawCloud(cloud) {
+		 context.beginPath();
+		 context.moveTo(cloud.x, cloud.y);
+		 context.bezierCurveTo(cloud.x-40, cloud.y+20, cloud.x-40, cloud.y+70, cloud.x+60, cloud.y+70);
+		  context.bezierCurveTo(cloud.x+80, cloud.y+100, cloud.x+170, cloud.y+100, cloud.x+170, cloud.y+70);
+		  context.bezierCurveTo(cloud.x+250, cloud.y+70, cloud.x+250, cloud.y+40, cloud.x+210, cloud.y+20);
+		  context.bezierCurveTo(cloud.x+260, cloud.y-40, cloud.x+200, cloud.y+50, cloud.x+170, cloud.y-30);
+		  context.bezierCurveTo(cloud.x+150, cloud.y-75, cloud.x+80, cloud.y-60, cloud.x+80, cloud.y-30);
+		  context.bezierCurveTo(cloud.x+30, cloud.y-75, cloud.x-20, cloud.y-60, cloud.x, cloud.y);
+		  
+		  context.closePath();
+		  context.lineWidth = 5;
+		  context.strokeStyle = cloud.color;
+		  context.stroke();
+		  
+		  if (cloud.x + cloud.dx > canvas.width || cloud.x + cloud.dx < 0)
+    cloud.dx = -cloud.dx;
+  if (cloud.y + cloud.dy > canvas.height || cloud.y + cloud.dy < 0)
+    cloud.dy = -cloud.dy;
+  cloud.x += cloud.dx;
+  cloud.y += cloud.dy;
+	  }
+	  
+	  function drawStar(star)
+{
+	var rot = Math.PI / 2 * 3;
+	var step = Math.PI / star.spikes;
+
+	context.beginPath();
+	for (i = 0; i  < star.spikes; i++) {
+		x = star.x + Math.cos(rot) * star.outer;
+		y = star.y + Math.sin(rot) * star.outer;
+		context.lineTo(x, y)
+		rot += step
+		
+		x = star.x + Math.cos(rot) * star.inner;
+		y = star.y + Math.sin(rot) * star.inner;
+		context.lineTo(x, y)
+		rot += step
+		}
+	context.closePath();
+	context.fillStyle = star.color;
+	context.fill();
+	star.x+=star.dx;
+	star.y+=star.dy;
+	if (star.x + star.dx > canvas.width || star.x + star.dx < 0)
+    star.dx = -star.dx;
+  if (star.y + star.dy > canvas.height || star.y + star.dy < 0)
+    star.dy = -star.dy;
+  star.x += star.dx;
+  star.y += star.dy;
+}
+  function drawDrop(drop) {
+		    context.beginPath();
+			context.lineJoin = 'miter';
+			context.moveTo(drop.x, drop.y);
+			context.arc(drop.x, drop.y+68, 34.5, 5.75, 3.66, false);
+			context.quadraticCurveTo(drop.x-3.5, drop.y+15, drop.x, drop.y);
+			context.closePath();
+			context.lineWidth = 2;
+			context.fillStyle = drop.color;
+			context.fill();
+				if (drop.x + drop.dx > canvas.width || drop.x + drop.dx < 0)
+    drop.dx = -drop.dx;
+  if (drop.y + drop.dy > canvas.height || drop.y + drop.dy < 0)
+    drop.dy = -drop.dy;
+  drop.x += drop.dx;
+  drop.y += drop.dy;
+	  }
+	  
+	
+	
+	function degreesToRadians(degrees){
+		return(degrees*Math.PI)/180;
+		
+	
+	}	
+	
+	
+	
+    window.onload= init;
+	
+	
+    
+</script>
+</head>
+<body>
+<h2>Many people debate over what is and isnt art... </h2>
+<h3>Its my opinion that anything can be art!</h3>
+<h3> Press A, S, D, and F to see the truth about art flash on the Canvas!</h3>
+<canvas id='canvas' width=500 height=500></canvas>
+</body>
+</html>
